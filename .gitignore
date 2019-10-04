@@ -45,3 +45,6 @@ coverage.json
 
 # Typescript staff
 types/
+
+# Documentation
+docs/
