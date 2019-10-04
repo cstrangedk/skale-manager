@@ -63,7 +63,7 @@
     "ethlint": "^1.2.4",
     "ganache-cli": "^6.1.8",
     "solidity-coverage": "leapdao/solidity-coverage",
-    "solidity-docgen": "^0.3.0",
+    "solidity-docgen": "^0.3.4",
     "tslint": "^5.18.0",
     "tslint-no-unused-expression-chai": "^0.1.4",
     "typescript": "^3.5.2"
