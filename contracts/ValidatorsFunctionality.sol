@@ -187,8 +187,8 @@ contract ValidatorsFunctionality is GroupsFunctionality, IValidatorsFunctionalit
             latencyArray[i] = IValidatorsData(dataAddress).verdicts(validatorIndex, i, 1);
         }
         if (lengthOfArray > 0) {
-            averageDowntime = median(downtimeArray);
-            averageLatency = median(latencyArray);
+            averageDowntime = average(downtimeArray);
+            averageLatency = average(latencyArray);
             IValidatorsData(dataAddress).removeAllVerdicts(validatorIndex);
         }
     }
@@ -258,12 +258,26 @@ contract ValidatorsFunctionality is GroupsFunctionality, IValidatorsFunctionalit
         return nodesInGroup;
     }
 
-    function median(uint32[] memory values) internal pure returns (uint32) {
+    function average(uint32[] memory values) internal pure returns (uint32) {
         if (values.length < 1) {
             revert("Can't calculate median of empty array");
         }
         quickSort(values, 0, values.length - 1);
-        return values[values.length / 2];
+        return cutting(values);
+    }
+
+    function cutting(uint32[] memory values) internal pure returns (uint32) {
+        uint8 start = 0;
+        uint8 length = uint8(values.length);
+        if (length > 2) {
+            start = length / 3;
+            length = length / 3 + length % 3;
+        }
+        uint sum = 0;
+        for (uint8 i = start; i < length; i++) {
+            sum += values[i];
+        }
+        return uint32(sum / length);
     }
 
     function setNumberOfNodesInGroup(bytes32 groupIndex, bytes32 groupData) internal view returns (uint numberOfNodes, uint finish) {
