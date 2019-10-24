@@ -274,7 +274,7 @@ contract ValidatorsFunctionality is GroupsFunctionality, IValidatorsFunctionalit
             length = length / 3 + length % 3;
         }
         uint sum = 0;
-        for (uint8 i = start; i < length; i++) {
+        for (uint8 i = start; i < start + length; i++) {
             sum += values[i];
         }
         return uint32(sum / length);
