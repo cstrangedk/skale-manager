@@ -109,7 +109,7 @@ contract("MonitorsFunctionality", ([owner, validator]) => {
   });
 
   it("should rejected with `The time has...` error when invoke sendVerdict", async () => {
-    const error = "The time has not come to send verdict";
+    const error = "The time has not come to send verdict for 1 Node";
     // preparation
     // ip = 127.0.0.1
     const ipToHex = "7f000001";
@@ -258,7 +258,6 @@ contract("MonitorsFunctionality", ([owner, validator]) => {
     (await monitorsData.getCheckedArray(node4Hash)).length.should.be.equal(2);
 
     await monitorsFunctionality.deleteMonitor(0);
-    console.log("Finished delete 0 monitor");
 
     await monitorsData.getCheckedArray(node0Hash).should.be.eventually.empty;
     await monitorsData.getCheckedArray(node1Hash).should.be.eventually.empty;
@@ -266,9 +265,7 @@ contract("MonitorsFunctionality", ([owner, validator]) => {
     (await monitorsData.getCheckedArray(node3Hash)).length.should.be.equal(1);
     (await monitorsData.getCheckedArray(node4Hash)).length.should.be.equal(1);
 
-    console.log("Started delete 1 monitor");
     await monitorsFunctionality.deleteMonitor(1);
-    console.log("Finished delete 1 monitor");
 
     // await monitorsData.getCheckedArray(node0Hash).should.be.eventually.empty;
     // await monitorsData.getCheckedArray(node1Hash).should.be.eventually.empty;
