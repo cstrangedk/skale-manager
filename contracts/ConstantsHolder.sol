@@ -182,9 +182,9 @@ contract ConstantsHolder is IConstants, Permissions {
         Permissions.initialize(contractsAddress);
 
         msr = 5e6 * 1e18;
-        rewardPeriod = 3600; // Test parameters
+        rewardPeriod = 7200; // Test parameters
         allowableLatency = 150000; // Test parameters
-        deltaPeriod = 300;  // Test parameters
+        deltaPeriod = 600;  // Test parameters
         checkTime = 120; // Test parameters
         lastTimeUnderloaded = 0;
         lastTimeOverloaded = 0;
