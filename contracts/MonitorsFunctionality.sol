@@ -147,7 +147,14 @@ contract MonitorsFunctionality is GroupsFunctionality {
         (index, time) = find(monitorIndex, toNodeIndex);
         require(time > 0, "Checked Node does not exist in MonitorsArray");
         string memory message = "The time has not come to send verdict for ";
-        require(time <= block.timestamp, message.strConcat(StringUtils.uint2str(toNodeIndex)).strConcat(" Node"));
+        require(
+            time <= block.timestamp, message
+            .strConcat(StringUtils.uint2str(toNodeIndex))
+            .strConcat(" Node. Time: ")
+            .strConcat(StringUtils.uint2str(time))
+            .strConcat(" And block time")
+            .strConcat(StringUtils.uint2str(block.timestamp))
+        );
         MonitorsData data = MonitorsData(contractManager.getContract("MonitorsData"));
         data.removeCheckedNode(monitorIndex, index);
         address constantsAddress = contractManager.getContract("ConstantsHolder");
