@@ -28,10 +28,13 @@ import "../interfaces/IConstants.sol";
 
 import "./DelegationController.sol";
 
+import "@nomiclabs/buidler/console.sol";
+
 
 contract ValidatorService is Permissions {
 
     using ECDSA for bytes32;
+    using StringUtils for string;
 
     struct Validator {
         string name;
@@ -168,7 +171,7 @@ contract ValidatorService is Permissions {
         uint validatorId = getValidatorId(msg.sender);
         bytes32 hashOfValidatorId = keccak256(abi.encodePacked(validatorId)).toEthSignedMessageHash();
         string memory message = "Signature is not pass. Recovered address: ";
-        require(hashOfValidatorId.recover(sig) == nodeAddress, message.strConcat(hashOfValidatorId.recover(sig)));
+        require(hashOfValidatorId.recover(sig) == nodeAddress, message.strConcat(StringUtils.address2str(hashOfValidatorId.recover(sig))));
         require(_validatorAddressToId[nodeAddress] == 0, "Node address is a validator");
         addNodeAddress(validatorId, nodeAddress);
         emit NodeAddressWasAdded(validatorId, nodeAddress);
