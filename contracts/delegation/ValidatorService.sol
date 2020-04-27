@@ -167,7 +167,8 @@ contract ValidatorService is Permissions {
     function linkNodeAddress(address nodeAddress, bytes calldata sig) external {
         uint validatorId = getValidatorId(msg.sender);
         bytes32 hashOfValidatorId = keccak256(abi.encodePacked(validatorId)).toEthSignedMessageHash();
-        require(hashOfValidatorId.recover(sig) == nodeAddress, "Signature is not pass");
+        string memory message = "Signature is not pass. Recovered address: ";
+        require(hashOfValidatorId.recover(sig) == nodeAddress, message.strConcat(hashOfValidatorId.recover(sig)));
         require(_validatorAddressToId[nodeAddress] == 0, "Node address is a validator");
         addNodeAddress(validatorId, nodeAddress);
         emit NodeAddressWasAdded(validatorId, nodeAddress);
